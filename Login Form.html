@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./login Form.css">
+</head>
+<body>
+
+    <div id="form">
+
+        <div id="myForm">
+             <h1>Sign Up</h1>
+    <form id="myForm" onsubmit="Submitf()" action="">
+
+      <div class="inner">
+
+      <div class="input-box">
+      <input required oninvalid="alert('Enter Email and Password')" type="email" id="email" value="" placeholder="Email">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="input-box">
+      <input required type="password" name="" id="password" value="" placeholder="Password">
+      <i class="fa-solid fa-envelope"></i>
+    </div>
+
+
+  </div>
+
+      <div id="forget">
+        <label for=""><input type="checkbox">Remember me</label>
+        <a href="">Forget password?</a>
+      </div>
+      <button type="submit" id="more" class="btn">Sign Up</button>
+
+      <div id="login">
+      <p>If you have already an account?
+        <a href="">Login</a>
+      </p>
+    </div>
+
+    </form>   
+          </div>
+  </div>
+  <script>
+    function Submitf(){
+        let email=document.getElementById("email").value
+        let password=document.getElementById("password").value
+        let arr=[
+            ["Email","Password"],
+            [email,password]
+        ]
+
+
+        document.write(`<table id='tbl' style='background-color:lightpink; width:50%; margin-left:5%' border='1px'>`)
+        for(let i=0;i<arr.length;i++){
+            document.write(`<tr>`)
+            for(let j=0;j<arr[i].length;j++){
+                document.write(`<td style="padding:5px;">${arr[i][j]}</td>`)
+            }
+            document.write(`</tr>`)
+            document.write("<br>")
+            
+        }
+        document.write(`</table>`)
+
+
+
+        // let object={
+        //     Email:email,
+        //     Password:password
+        // }
+
+        // document.write(`<table style='background-color:lightpink; width:50%; margin-left:5%' border='1px'>`)
+        // for(let i in object){
+        //      document.write("<tr>");
+        //      document.write("<td>" + i + "</td>");
+        //      document.write("<td>" + object[i] + "</td>");
+        //      document.write("</tr>");
+        // }
+        // document.write(`</table>`)
+    }
+  </script>
+</body>
+</html>

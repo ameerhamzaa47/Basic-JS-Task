@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamically </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./Pop form CSS File.css">
+</head>
+<body>
+    
+  <div id="table-style">
+  <table  id="tbl" border="3px" cellspacing='0'>
+    <thead style="background: palevioletred;">
+      <th style="background: rgb(218, 71, 95);">Name</th>
+      <th style="background: rgb(218, 71, 95);">Email</th>
+      <th style="background: rgb(218, 71, 95);">Password</th>
+      <th style="background: rgb(218, 71, 95);">Phone Number</th>
+      <th style="background: rgb(218, 71, 95);" colspan="3">Updation</th>
+</thead>
+  </table>
+</div>
+
+
+<button class="open-button" onclick="openForm()">Open Form</button>
+
+    <div id="form">
+
+        <div class="form-popup form-container" id="myForm">
+             <h1>Sign Up</h1>
+    <form id="myForm"  action="">
+
+      <div class="inner">
+
+      <div class="input-box">
+      <input required oninvalid="alert('Write Name')" type="text" name="" id="name" value="" placeholder="Name">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="input-box">
+      <input required type="email" name="" id="email" value="" placeholder="Email">
+      <i class="fa-solid fa-envelope"></i>
+    </div>
+
+    <div class="input-box">
+      <input required type="password" name="" id="password" value="" placeholder="Password">
+      <i class="fa-solid fa-lock"></i>
+    </div>
+
+    <div class="input-box">
+      <input required type="number" name="" id="number" value="" placeholder="Phone Number">
+      <i class="fa-solid fa-phone"></i>
+    </div>
+
+  </div>
+
+      <div id="forget">
+        <label for=""><input type="checkbox">Remember me</label>
+        <a href="">Forget password?</a>
+      </div>
+      <button type="submit" id="more" class="btn">Sign Up</button>
+
+      <div id="login">
+      <p>If you have already an account?
+        <a href="">Login</a>
+      </p>
+    </div>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+    </form>
+              
+            
+          </div>
+  </div>
+
+
+  <script>
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+////////////////
+
+function deleteRow(btn){
+  let b=btn.parentNode.parentNode;
+  b.parentNode.removeChild(b)
+}
+////
+
+function deleteAll(){
+  location.reload()
+}
+
+//////
+
+
+
+function editRow(btn) {
+  let row = btn.parentNode.parentNode;
+  let td = row.getElementsByTagName('td');
+  let isEditing = btn.innerText === 'Edit';
+
+  for (let i = 0; i < td.length -3; i++) {
+    if (isEditing) {
+      // Turn cell into input field
+      let newdata = td[i].innerText;
+      td[i].innerHTML = `<input type='text' value='${newdata}' />`;
+    } else {
+      // Save input field's value back to cell
+      let olddata = td[i].getElementsByTagName('input')[0];
+      td[i].innerText = olddata.value;
+    }
+  }
+
+  btn.innerText = isEditing ? 'Save' : 'Edit';
+}
+
+
+//In other method (output same but method is long)
+
+/*function editRow(btn) {
+  let row = btn.parentNode.parentNode;
+  let cells = row.getElementsByTagName('td');
+  let currentData = {
+    name: cells[0].innerText,
+    email: cells[1].innerText,
+    password: cells[2].innerText,
+    number: cells[3].innerText
+  };
+
+  // Replace cell text with input fields
+  cells[0].innerHTML = `<input type='text' value='${currentData.name}' />`;
+  cells[1].innerHTML = `<input type='email' value='${currentData.email}' />`;
+  cells[2].innerHTML = `<input type='password' value='${currentData.password}' />`;
+  cells[3].innerHTML = `<input type='text' value='${currentData.number}' />`;
+
+  // Change the button to 'Save'
+  btn.innerText = 'Save';
+  btn.setAttribute('onclick', 'saveRow(this)');
+}
+
+function saveRow(btn) {
+  let row = btn.parentNode.parentNode;
+  let inputs = row.getElementsByTagName('input');
+  let newData = {
+    name: inputs[0].value,
+    email: inputs[1].value,
+    password: inputs[2].value,
+    number: inputs[3].value
+  };
+
+  // Save new data back to the cells
+  row.cells[0].innerText = newData.name;
+  row.cells[1].innerText = newData.email;
+  row.cells[2].innerText = newData.password;
+  row.cells[3].innerText = newData.number;
+
+  // Change the button back to 'Edit'
+  btn.innerText = 'Edit';
+  btn.setAttribute('onclick', 'editRow(this)');
+}*/
+
+
+
+//////////////////////////////
+
+    document.getElementById("myForm").addEventListener("submit",function(e){
+        e.preventDefault()
+
+        let name=document.getElementById("name").value
+        let email=document.getElementById("email").value
+        let password=document.getElementById("password").value
+        let number=document.getElementById("number").value
+
+        let table=document.getElementById("tbl")
+        let newRow=table.insertRow()
+        newRow.innerHTML=`<td style='padding:10px'>${name}</td><td style='padding:10px'>${email}</td><td style='padding:10px'>${password}</td><td style='padding:10px'>${number}</td>
+        <td><button id="javabtn" onclick='editRow(this)'>Edit</i></button></td><td><button id="javabtn" onclick='deleteRow(this)'>Delete</button></td>
+        <td><button id="javabtn" onclick='deleteAll()'>Delete All</button></td>`
+
+        name=document.getElementById("name").value=""
+        email=document.getElementById("email").value=""
+        password=document.getElementById("password").value=""
+        number=document.getElementById("number").value=""
+    });
+
+
+
+    //Other Method (Output Same)
+
+    // function clickf(){
+        
+
+    //     let name=document.getElementById("name").value
+    //     let email=document.getElementById("email").value
+    //     let password=document.getElementById("password").value
+    //     let number=document.getElementById("number").value
+    
+    //     let tr=document.createElement("tr")
+    
+    //     let td1=tr.appendChild(document.createElement("td"))
+    //     let td2=tr.appendChild(document.createElement("td"))
+    //     let td3=tr.appendChild(document.createElement("td"))
+    //     let td4=tr.appendChild(document.createElement("td"))
+    
+    //     td1.innerHTML=name;
+    //     td2.innerHTML=email;
+    //     td3.innerHTML=password;
+    //     td4.innerHTML=number;
+    
+    //     document.getElementById("tbl").appendChild(tr)
+    
+    //     document.getElementById('name').value = '';
+    //     document.getElementById('email').value = '';
+    //     document.getElementById('password').value = '';
+    //     document.getElementById('number').value = '';
+
+
+
+    // In Array form data store
+    // function submitf(){
+
+    //   document.getElementById("form").addEventListener("submit",function(e){
+    //   e.preventDefault();
+    // })
+
+    //   let xn=document.getElementById("name").value
+    //   let xe=document.getElementById("email").value
+    //   let xp=document.getElementById("password").value
+    //   let xph=document.getElementById("number").value
+
+    //   let array=[
+    //   ["Name","Email","Password","Number","Updation"],
+    //   [xn,xe,xp,xph,]
+    //   ]
+
+    //   document.write(<table border='1px' cellspacing='5' style='width:100%; padding:10px 10px; text-align:center; font-size:20px'>)
+    //   for(let i=0;i<array.length;i++){
+    //     document.write("<tr>")
+    //     for(let j=0;j<array[i].length;j++){
+    //       document.write("<td>"+array[i][j]+"</td>")
+    //     }
+    //     document.write("<br>")
+    //     document.write("</tr>")
+    //   }
+    //   document.write("</table>")
+    //   document.write(<br> <button><a href="./Pop up Form.HTML">Add Student</a></button>)
+      
+    //   //
+    //   document.getElementById("name").value=" "
+    //   document.getElementById("email").value=" "
+    //   document.getElementById("password").value=" "
+    //   document.getElementById("number").value=" "
+    // }
+    
+    
+  </script>
+</body>
+</html>
